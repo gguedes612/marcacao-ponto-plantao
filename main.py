@@ -5,8 +5,9 @@ nome_empresa = ''
 numero_matricula = ''
 nome_completo = ''
 localidade = ''
+diretorio_planilha = '' # ex: '/home/teste.xlsx'
 
-planilha = Planilha('/home/guilherme/teste.xlsx')
+planilha = Planilha(diretorio_planilha)
 
 def main():
     print('Deseja sair ou bater entrada?')
