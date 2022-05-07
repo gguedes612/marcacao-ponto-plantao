@@ -21,13 +21,13 @@ class Planilha:
     def salvar_planilha(self):
         self.wb.save(self.diretorio)
     
-    def adicionar_valores(self,nome_empresa,numero_matricula,nome_completo,localidade,tipo,data_inicio,hora_inicio,data_final,hora_final,linha=1):
+    def adicionar_valores(self,nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final,linha=1):
         if self.ws[f'A{linha}'].value == None:
             self.ws[f'A{linha}'] = nome_empresa
             self.ws[f'B{linha}'] = numero_matricula
             self.ws[f'C{linha}'] = nome_completo
             self.ws[f'D{linha}'] = localidade
-            self.ws[f'E{linha}'] = tipo
+            self.ws[f'E{linha}'] = 'Acionamento'
             self.ws[f'F{linha}'] = data_inicio
             self.ws[f'G{linha}'] = f'=IF(F{linha}="";"";WEEKDAY(F{linha}))'
             self.ws[f'H{linha}'] = hora_inicio
@@ -36,4 +36,4 @@ class Planilha:
             self.ws[f'K{linha}'] = hora_final
             
         else:
-            self.adicionar_valores(nome_empresa,numero_matricula,nome_completo,localidade,tipo,data_inicio,hora_inicio,data_final,hora_final,linha+1)
+            self.adicionar_valores(nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final,linha+1)
