@@ -1,29 +1,42 @@
-import datetime
-from openpyxl import Workbook
+from datetime import datetime
+from planilha import Planilha
 
-data_hora_atual =  datetime.datetime.now()
+nome_empresa = ''
+numero_matricula = ''
+nome_completo = ''
+localidade = ''
 
-print(data_hora_atual)
+planilha = Planilha('/home/guilherme/teste.xlsx')
 
-if data_hora_atual.month >= 10:
-    data_inicio = f'{data_hora_atual.day}/{data_hora_atual.month}/{data_hora_atual.year}'
-else:
-    data_inicio = f'{data_hora_atual.day}/0{data_hora_atual.month}/{data_hora_atual.year}'
+def main():
+    print('Deseja sair ou bater entrada?')
+    print('Sair(X) Bater entrada(Enter)')
+    entrada = input('')
+    if entrada == 'X' or entrada == 'x':
+        planilha.salvar_planilha()
+        exit()
+    else:
+        bater_entrada()
 
-if data_hora_atual.minute >= 10:
-    hora_inicio = f'{data_hora_atual.hour}:{data_hora_atual.minute}'
-else:
-    hora_inicio = f'{data_hora_atual.hour}:0{data_hora_atual.minute}'
+def bater_entrada():
+    data_hora_atual =  datetime.now()
+    data_inicio = data_hora_atual.strftime('%d/%m/%Y')
+    hora_inicio = data_hora_atual.strftime('%H:%M')
+    print(f'Sua hora e data de entrada é {data_inicio} ás {hora_inicio}.\n')
+    bater_saida(data_inicio,hora_inicio)
 
+def bater_saida(data_inicio,hora_inicio):
+    print('Deseja bater saida ponto?')
+    print('Sair(X) Bater saida(Enter)')
+    entrada = input()
+    if entrada == 'X' or entrada == 'x':
+        exit()
+    else:
+        data_hora_atual =  datetime.now()
+        data_final = data_hora_atual.strftime('%d/%m/%Y')
+        hora_final = data_hora_atual.strftime('%H:%M')
+        planilha.adicionar_valores(nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final)
+        print(f'Sua hora e data de saida é {data_inicio} ás {hora_inicio}.\n')
+        main()
 
-print(data_inicio)
-print(hora_inicio)
-
-wb = Workbook()
-
-planilha = wb.worksheets[0]
-
-planilha['A1'] = data_inicio
-planilha['A2'] = hora_inicio
-
-wb.save('/home/furiosa/teste.xlsx')
+main()
