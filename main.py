@@ -1,11 +1,11 @@
 from datetime import datetime
 from planilha import Planilha
 
-nome_empresa = ''
-numero_matricula = ''
-nome_completo = ''
-localidade = ''
-diretorio_planilha = '' # ex: '/home/teste.xlsx'
+nome_empresa = 'Conductor'
+numero_matricula = '123456'
+nome_completo = 'guilherme de lima guedes'
+localidade = 'Goiana PE'
+diretorio_planilha = '/home/guilherme/teste.xlsx' # ex: '/home/teste.xlsx'
 
 planilha = Planilha(diretorio_planilha)
 
