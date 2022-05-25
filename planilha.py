@@ -1,17 +1,45 @@
 from openpyxl import Workbook, load_workbook
+from openpyxl.styles import PatternFill,  Font
 
 class Planilha:
 
     def __init__(self,diretorio):
         
         self.diretorio = diretorio
+        self.font = Font('Calibri',color='FFFFFF')
+        self.fill = PatternFill(patternType='solid',fgColor='4472c4')
+
         try: 
+        
             self.workbook = load_workbook(self.diretorio)
             self.planilha = self.workbook['Planilha']
+        
         except FileNotFoundError:
+            
             self.workbook = Workbook()
             self.workbook.create_sheet('Planilha',0)
             self.planilha = self.workbook['Planilha']
+            
+            #Adicionando valores na planilha
+            self.planilha['A1'] = 'Empresa'
+            self.planilha['B1'] = 'Matricula'
+            self.planilha['C1'] = 'Nome Completo'
+            self.planilha['D1'] = 'Localidade'
+            self.planilha['E1'] = 'Tipo'
+            self.planilha['F1'] = 'Data Início'
+            self.planilha['G1'] = 'D. Sem'
+            self.planilha['H1'] = 'Hora Início'
+            self.planilha['I1'] = 'Data Fim'
+            self.planilha['J1'] = 'D. Sem'
+            self.planilha['K1'] = 'Hora Fim'
+            self.planilha['L1'] = 'T. Realizado (Hrs)'
+            self.planilha['M1'] = 'T. Realizado (Num)'
+            
+            #Adicionando Fonte e Background
+            self.planilha.row_dimensions[1].font = self.font
+            self.planilha.row_dimensions[1].fill = self.fill
+
+
        
     def mostra_planilhas(self):
         return self.workbook.sheetnames
@@ -37,6 +65,7 @@ class Planilha:
             self.planilha[f'K{linha}'] = hora_final
             self.planilha[f'L{linha}'] = f'=IF(H{linha}="",0,(TEXT(I{linha},"dd/mm/aaaa")&" "&TEXT(K{linha},"[hh]:mm"))-(TEXT(F{linha},"dd/mm/aaaa")&" "&TEXT(H{linha},"[hh]:mm")))'
             self.planilha[f'M{linha}'] = f'=IF(L{linha}="",0,L{linha}*24)'
+            
             self.adicionar_formato_celulas(linha)
             
         else:
