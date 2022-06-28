@@ -34,6 +34,8 @@ class Planilha:
             self.planilha['K1'] = 'Hora Fim'
             self.planilha['L1'] = 'T. Realizado (Hrs)'
             self.planilha['M1'] = 'T. Realizado (Num)'
+            self.planilha['N1'] = 'Chamado'
+            self.planilha['O1'] = 'Observação'
             
             #Adicionando Fonte e Background
             self.planilha.row_dimensions[1].font = self.font
@@ -50,7 +52,7 @@ class Planilha:
     def salvar_planilha(self):
         self.workbook.save(self.diretorio)
     
-    def adicionar_valores(self,nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final,linha=1):
+    def adicionar_valores(self,nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final,chamado,observacao,linha=1):
         if self.planilha[f'A{linha}'].value == None:
             self.planilha[f'A{linha}'] = nome_empresa
             self.planilha[f'B{linha}'] = numero_matricula
@@ -65,11 +67,13 @@ class Planilha:
             self.planilha[f'K{linha}'] = hora_final
             self.planilha[f'L{linha}'] = f'=IF(H{linha}="",0,(TEXT(I{linha},"dd/mm/aaaa")&" "&TEXT(K{linha},"[hh]:mm"))-(TEXT(F{linha},"dd/mm/aaaa")&" "&TEXT(H{linha},"[hh]:mm")))'
             self.planilha[f'M{linha}'] = f'=IF(L{linha}="",0,L{linha}*24)'
+            self.planilha[f'N{linha}'] = chamado
+            self.planilha[f'O{linha}'] = observacao
             
             self.adicionar_formato_celulas(linha)
             
         else:
-            self.adicionar_valores(nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final,linha+1)
+            self.adicionar_valores(nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final,chamado,observacao,linha+1)
 
     def adicionar_formato_celulas(self,linha):
         self.planilha[f'G{linha}'].number_format = '[$-16]DDD'

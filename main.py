@@ -27,16 +27,20 @@ def bater_entrada():
     bater_saida(data_inicio,hora_inicio)
 
 def bater_saida(data_inicio,hora_inicio):
+    chamado = input('Digite o Nº do chamado: ')
+    observacao = input('Digite uma Observação: ')
+    
     print('Deseja bater saida ponto?')
     print('Sair(X) Bater saida(Enter)')
     entrada = input()
+    
     if entrada == 'X' or entrada == 'x':
         exit()
     else:
         data_hora_atual =  datetime.now()
         data_final = data_hora_atual.strftime('%d/%m/%Y')
         hora_final = data_hora_atual.strftime('%H:%M')
-        planilha.adicionar_valores(nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final)
+        planilha.adicionar_valores(nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final,chamado,observacao)
         print(f'Sua hora e data de saida é {data_inicio} ás {hora_inicio}.\n')
         main()
 
