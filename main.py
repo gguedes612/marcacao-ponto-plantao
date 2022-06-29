@@ -41,7 +41,7 @@ def bater_saida(data_inicio,hora_inicio):
         data_final = data_hora_atual.strftime('%d/%m/%Y')
         hora_final = data_hora_atual.strftime('%H:%M')
         planilha.adicionar_valores(nome_empresa,numero_matricula,nome_completo,localidade,data_inicio,hora_inicio,data_final,hora_final,chamado,observacao)
-        print(f'Sua hora e data de saida é {data_inicio} ás {hora_inicio}.\n')
+        print(f'Sua hora e data de saida é {data_final} ás {hora_final}.\n')
         main()
 
 main()
